@@ -9,6 +9,7 @@
   </head>
   <body>
     <div id="popularity_correlation_chart"></div>
+    <div id="explicit_chart"></div>
     
     <script type="text/javascript">
 
@@ -158,6 +159,35 @@
         vegaEmbed('#popularity_correlation_chart',popularity_correlation_chart);
       
 
+        var explicit_chart = {
+            $schema: 'https://vega.github.io/schema/vega-lite/v6.json',
+            description: 'Faceted histograms displaying various differences between explicit and non-explicit songs',
+            title: 'How do Explicit and Non-Explicit Songs Compare?',
+            data: {url:'clean_dataset.csv'},
+            params: [ {
+                name: 'metricParam', 
+                value: 'popularity',
+                bind: {input: 'select', name: 'Metric: ', options: ['duration_ms', 'danceability', 'energy', 'loudness', 'speechiness', 'acousticness', 'instrumentalness', 'liveness', 'valence', 'tempo']}
+            } ],
+            
+            facet: {column: {field: 'explicit'}},
+            spec: {
+                transform: [{density: 'metricParam', groupby: ['explicit']}],
+                mark: {type: 'bar'},
+                encoding: {
+                x: {field: 'value', type: 'quantitative', bin: { maxbins: 20 }},
+                y: {field: 'density', type: 'quantitative'},
+                color: { 
+                    field: 'explicit', 
+                    type: 'nominal', 
+                    scale: {
+                        domain: ['True', 'False'], 
+                        range: ['red', 'green']  
+                }},
+                },
+            }
+        }
+        vegaEmbed('#explicit_chart',explicit_chart);
     </script>
 
   </body>

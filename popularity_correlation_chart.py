@@ -3,9 +3,9 @@ import pandas as pd
 
 def find_correlation(genre):
     if genre != 'All':
-        genre_df = df.loc[df['track_genre'] == genre]
+        genre_df = df_no_zeroes.loc[df_no_zeroes['track_genre'] == genre]
     else:
-        genre_df = df
+        genre_df = df_no_zeroes
     coefficients = []
     genre_column = []
     for metric in metrics:
@@ -17,6 +17,7 @@ def find_correlation(genre):
     
 
 df = pd.read_csv('clean_dataset.csv')
+df_no_zeroes = df.loc[df['popularity']>0]
 metrics = ['duration_ms', 'danceability', 'energy', 'loudness', 'speechiness', 'acousticness', 'instrumentalness', 'liveness', 'valence', 'tempo']
 genres = []
 vis_dfs = []
