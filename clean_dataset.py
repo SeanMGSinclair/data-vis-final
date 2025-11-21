@@ -4,7 +4,7 @@ import pandas as pd
 df = pd.read_csv('dataset.csv')
 
 df = df.sort_values(by='popularity', ascending=False)
-df = df.drop_duplicates(subset=['track_name'])
+df = df.drop_duplicates(subset=['track_name','artists'])
 df = df.loc[df['popularity'] > 0]
 
 

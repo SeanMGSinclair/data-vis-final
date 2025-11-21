@@ -1,12 +1,26 @@
+
 <!doctype html>
 <html>
   <head>
-    <title>Embedding Vega-Lite</title>
+    <meta charset="utf-8" />
+    <title>Combined Visualizations</title>
+
     <script src="https://cdn.jsdelivr.net/npm/vega@6.2.0"></script>
     <script src="https://cdn.jsdelivr.net/npm/vega-lite@6.4.0"></script>
     <script src="https://cdn.jsdelivr.net/npm/vega-embed@7.0.2"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+
     <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="Mark.css">
+
+    <style>
+      .section {
+        margin-bottom: 70px;
+      }
+    </style>
   </head>
+
   <body>
     <div id="popularity_correlation_chart"></div>
     <div id="explicit_chart"></div>
@@ -188,6 +202,8 @@
         }
         vegaEmbed('#explicit_chart',explicit_chart);
     </script>
+
+    <script src="Dashboard.js"></script>
 
   </body>
 </html>

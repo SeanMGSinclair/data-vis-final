@@ -1,8 +1,5 @@
-/*.vega-embed {
-    display: flex;
-    flex-direction: row-reverse;
-    align-items: flex-start;
-}*/
-#explicit_chart {
-    margin-top: 15%;
+
+#popularity_correlation_chart {
+    padding-left: 20%;
 }
+
