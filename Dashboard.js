@@ -4,6 +4,8 @@
 
   const corrText = await fetch("corr10.csv").then(r => r.text());
   const songsText = await fetch("song.csv").then(r => r.text());
+  const explicitText = await fetch("explicit.csv").then(r => r.text());
+  const nonExplicitText = await fetch("non_explicit.csv").then(r => r.text());
 
   const corrRows = corrText.trim().split(/\r?\n/).map(r => r.split(","));
   const originalLabels = corrRows[0].slice(1);
@@ -28,7 +30,22 @@
     skipEmptyLines: true
   });
 
+  const parsedExplicit = Papa.parse(explicitText, {
+    header: true,
+    dynamicTyping: true,
+    skipEmptyLines: true
+  });
+  console.log(parsedExplicit)
+
+  const parsedNonExplicit = Papa.parse(nonExplicitText, {
+    header: true,
+    dynamicTyping: true,
+    skipEmptyLines: true
+  });
+
   const songsData = parsedSongs.data;
+  const explicitData = parsedExplicit.data;
+  const nonExplicitData = parsedNonExplicit.data;
   
   var popularity_correlation_chart = {
     $schema: 'https://vega.github.io/schema/vega-lite/v6.json',
@@ -91,6 +108,58 @@
   };
 
   vegaEmbed('#popularity_correlation_chart', popularity_correlation_chart);
+
+  const explicitSample = getSample(explicitData)
+  const nonExplicitSample = getSample(nonExplicitData)
+  console.log("Type of explicit sample "+typeof(explicitSample));
+  function getSample(data) {
+    for (let i = data.length - 1; i > 0; i--) {
+      const j = (Math.random() * (i + 1)) | 0;
+      [data[i], data[j]] = [data[j], data[i]];
+    }
+
+    return data.slice(0, 1000);
+  }
+  
+  let totalSample = explicitSample.concat(nonExplicitSample)
+  console.log(totalSample)
+
+  var explicit_chart = {
+    $schema: 'https://vega.github.io/schema/vega-lite/v6.json',
+    description: 'Faceted histograms displaying various differences between explicit and non-explicit songs',
+    title: 'How do Explicit and Non-Explicit Songs Compare?',
+    data: {values: totalSample},
+    params: [ {
+        name: 'metricParam', 
+        value: 'popularity',
+        bind: {input: 'select', name: 'Metric: ', options: ['popularity', 'duration_ms', 'danceability', 'energy', 'loudness', 'speechiness', 'acousticness', 'instrumentalness', 'liveness', 'valence', 'tempo']}
+    } ],
+    facet: {column: {field: 'explicit', title: 'Non-Explicit (Green) vs. Explicit (Red)'}},
+    spec: {
+        transform: [{calculate:'datum[metricParam]', as: 'metricValue'}, 
+          { bin: { maxbins: 20 }, field: "metricValue", as: ["bin_start", "bin_end"] }],
+        mark: {type: 'bar'},
+        encoding: {
+        x: {field: 'metricValue', type: 'quantitative', bin: {maxbins: 20}, axis: {title: 'Metric'}},
+        y: {aggregate: 'count', type: 'quantitative', axis: {title: '# of Occurrences'}},
+        color: { 
+            field: 'explicit', 
+            type: 'nominal', 
+            scale: {
+                domain: ['True', 'False'], 
+                range: ['red', 'blue']  
+            }
+        },
+        tooltip: [
+          {field: 'bin_start', title: 'Bin Start'},
+          {field: 'bin_end', title: 'Bin End'},
+          {aggregate: 'count'},
+        ]
+        }
+    }
+}
+vegaEmbed('#explicit_chart',explicit_chart);
+
   const heatSpec = {
     $schema: "https://vega.github.io/schema/vega-lite/v5.json",
     width: "container",
