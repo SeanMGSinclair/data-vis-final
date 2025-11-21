@@ -163,8 +163,8 @@ vegaEmbed('#explicit_chart',explicit_chart);
 var tempo_length_plot = {
   $schema: 'https://vega.github.io/schema/vega-lite/v6.json',
   description: 'Scatterplot showing the relationship between average tempo, length, and loudness per artist',
-  title: 'Average Tempo vs. Length in Popular Artists\'s Songs',
-  width: 600,
+  title: 'Average Tempo vs. Length in Popular Artists\' Songs',
+  width: 800,
   data: {url: 'artist_stats.csv'},
   "params": [{
     name: 'zoom',
