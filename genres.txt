@@ -71,9 +71,9 @@ show-tunes
 comedy
 ska
 afrobeat
+party
 j-dance
 dub
-party
 death-metal
 metalcore
 disney
@@ -82,6 +82,7 @@ mandopop
 world-music
 idm
 classical
+hardstyle
 dubstep
 bluegrass
 new-age
@@ -93,7 +94,6 @@ trip-hop
 goth
 mpb
 club
-hardstyle
 happy
 malay
 breakbeat
@@ -102,12 +102,12 @@ kids
 heavy-metal
 forro
 guitar
+detroit-techno
 j-idol
 gospel
 black-metal
 honky-tonk
 study
-detroit-techno
 tango
 grindcore
 romance
