@@ -16,10 +16,10 @@ tempos = []
 durations = []
 loudness = []
 
-for artist in artists:
-    artist_df = df.loc[df['artists'] == artist]
+for i in range(200):
+    artist_df = df.loc[df['artists'] == artists[i]]
     tempos.append(artist_df['tempo'].mean())
-    durations.append(artist_df['duration_ms'].mean())
+    durations.append((artist_df['duration_ms'].mean())/60000.0)
     loudness.append(artist_df['loudness'].mean())
 
 artist_stats = list(zip(artists, tempos, durations, loudness))

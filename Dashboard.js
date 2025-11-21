@@ -138,7 +138,7 @@
     spec: {
         transform: [{calculate:'datum[metricParam]', as: 'metricValue'}, 
           { bin: { maxbins: 20 }, field: "metricValue", as: ["bin_start", "bin_end"] }],
-        mark: {type: 'bar'},
+        mark: {type: 'bar', stroke:"black", strokeWidth: '1px'},
         encoding: {
         x: {field: 'metricValue', type: 'quantitative', bin: {maxbins: 20}, axis: {title: 'Metric'}},
         y: {aggregate: 'count', type: 'quantitative', axis: {title: '# of Occurrences'}},
@@ -159,6 +159,44 @@
     }
 }
 vegaEmbed('#explicit_chart',explicit_chart);
+
+var tempo_length_plot = {
+  $schema: 'https://vega.github.io/schema/vega-lite/v6.json',
+  description: 'Scatterplot showing the relationship between average tempo, length, and loudness per artist',
+  title: 'Average Tempo vs. Length in Popular Artists\'s Songs',
+  width: 600,
+  data: {url: 'artist_stats.csv'},
+  "params": [{
+    name: 'zoom',
+    select: 'interval',
+    bind: 'scales'
+  }],
+  mark: {type: 'circle'},
+    encoding: {
+      x: {
+        field: 'duration',
+        type: 'quantitative',
+        axis: {title: 'Average Duration (Mins)'},
+      },
+      y: {
+        field: 'tempo',
+        type: 'quantitative',
+        axis: {title: 'Average Tempo (BPM)'}
+      },
+      size: {
+        field: 'loudness',
+        type: 'quantitative'
+      },
+      color: {value: '#1db954'},
+      tooltip: [
+        {field: 'artist'},
+        {field: 'duration'},
+        {field: 'tempo'},
+        {field: 'loudness'}
+      ]
+    }
+}
+vegaEmbed('#tempo_length_plot',tempo_length_plot);
 
   const heatSpec = {
     $schema: "https://vega.github.io/schema/vega-lite/v5.json",
