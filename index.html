@@ -50,70 +50,10 @@
     </div>
 
     <script>
-      var popularity_correlation_chart = {
-        $schema: 'https://vega.github.io/schema/vega-lite/v6.json',
-        description: 'Bar graph visualizing what metrics best correlate with popularity -- by genre',
-        title: 'What Best Correlates With Popularity?',
-        data: {url:'popularity_correlation.csv'},
-        width: 600,
-        height: 300,
-        params: [{
-            name: 'genreParam',
-            value: 'All',
-            bind: {
-              input: "select",
-              name: 'Genre: ',
-              options: [
-                'All','dance','hip-hop','pop','reggaeton','latino','latin','alt-rock','chill',
-                'reggae','indie','rock','groove','folk','piano','country','funk','edm',
-                'k-pop','soul','indian','british','electro','alternative','synth-pop','emo',
-                'indie-pop','techno','r-n-b','metal','house','sleep','hard-rock','blues',
-                'pagode','trance','german','disco','garage','sad','singer-songwriter',
-                'anime','dancehall','punk','swedish','acoustic','brazil','progressive-house',
-                'power-pop','spanish','rockabilly','hardcore','pop-film','grunge','ambient',
-                'french','punk-rock','psych-rock','chicago-house','j-pop','songwriter','jazz',
-                'j-rock','children','turkish','electronic','salsa','deep-house','rock-n-roll',
-                'industrial','show-tunes','comedy','ska','afrobeat','j-dance','dub','party',
-                'death-metal','metalcore','disney','cantopop','mandopop','world-music','idm',
-                'classical','dubstep','bluegrass','new-age','drum-and-bass','samba',
-                'minimal-techno','opera','trip-hop','goth','mpb','club','hardstyle','happy',
-                'malay','breakbeat','sertanejo','kids','heavy-metal','forro','guitar','j-idol',
-                'gospel','black-metal','honky-tonk','study','detroit-techno','tango',
-                'grindcore','romance','iranian'
-              ]
-            }
-        }],
-        transform: [{filter: 'datum.Genre === genreParam'}],
-        mark: {type: 'bar', stroke:"black", strokeWidth: '1px'},
-        encoding: {
-          x: {
-            field: 'Correlation',
-            type: 'quantitative',
-            axis: {title: 'Correlation Coefficient'},
-            scale: {domain: [-1.0, 1.0]}
-          },
-          y: {
-            field: 'Metric',
-            type: 'nominal',
-            sort: {op: 'mean', field: 'Correlation', order: 'descending'}
-          },
-          color: {
-            field: "Correlation",
-            type: "quantitative",
-            scale: { domain: [-1, 0, 1], range: ["#b2182b", "#f7f7f7", "#2166ac"] },
-          },
-          tooltip: [
-            {field: 'Metric'},
-            {field: 'Correlation'},
-            {field: 'Genre'}
-          ]
-        }
-      };
-
-      vegaEmbed('#popularity_correlation_chart', popularity_correlation_chart);
+      
     </script>
 
-    <script src="Mark.js"></script>
+    <script src="Dashboard.js"></script>
 
   </body>
 </html>
