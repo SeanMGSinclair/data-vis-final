@@ -82,7 +82,7 @@
             }
         }],
         transform: [{filter: 'datum.Genre === genreParam'}],
-        mark: 'bar',
+        mark: {type: 'bar', stroke:"black", strokeWidth: '1px'},
         encoding: {
           x: {
             field: 'Correlation',
@@ -93,9 +93,13 @@
           y: {
             field: 'Metric',
             type: 'nominal',
-            sort: {field: 'Correlation', order: 'descending'}
+            sort: {op: 'mean', field: 'Correlation', order: 'descending'}
           },
-          color: {value: "DarkBlue"},
+          color: {
+            field: "Correlation",
+            type: "quantitative",
+            scale: { domain: [-1, 0, 1], range: ["#b2182b", "#f7f7f7", "#2166ac"] },
+          },
           tooltip: [
             {field: 'Metric'},
             {field: 'Correlation'},

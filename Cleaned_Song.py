@@ -8,7 +8,9 @@ df = df.loc[:, ~df.columns.str.contains("^Unnamed")]
 print(f"Removed {len(unnamed_cols)} unnamed columns: {list(unnamed_cols)}")
 
 before_dupes = len(df)
-df = df.drop_duplicates(subset=["track_name", "artists"])
+df = df.loc[df['popularity']>0]
+sorted_df = df.sort_values(by='popularity', ascending=False)
+df = sorted_df.drop_duplicates(subset=["track_name", "artists"])
 after_dupes = len(df)
 print(f"Duplicate rows removed: {before_dupes - after_dupes}")
 
@@ -181,13 +183,14 @@ numeric_cols = [
     "acousticness", "instrumentalness", "liveness", "valence", "tempo"
 ]
 
+'''
 for col in numeric_cols:
     mean = final_df[col].mean()
     std = final_df[col].std()
     lower_bound = mean - 3 * std
     upper_bound = mean + 3 * std
     final_df = final_df[(final_df[col] >= lower_bound) & (final_df[col] <= upper_bound)]
-
+'''
 print(f"Total rows remaining: {len(final_df)}")
 
 final_df.to_csv("song.csv", index=False)
