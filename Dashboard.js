@@ -1,4 +1,5 @@
 (async function () {
+  /****************************** Javascript Data Munging ******************************************/
   const DEFAULT_SAMPLE_SIZE = 100;
   const prettyLabel = s => s.charAt(0).toUpperCase() + s.slice(1);
 
@@ -13,7 +14,7 @@
 
   const labelMap = Object.fromEntries(
     originalLabels.map((raw, i) => [prettyLabels[i], raw])
-  );
+);
 
   const heatData = corrRows.slice(1).flatMap((row, i) => {
     const prettyRowLabel = prettyLabel(row[0]);
@@ -46,7 +47,8 @@
   const songsData = parsedSongs.data;
   const explicitData = parsedExplicit.data;
   const nonExplicitData = parsedNonExplicit.data;
-  
+
+  /************************************** First Visualization: Popularity Correlation Bar Chart ******************************************/
   var popularity_correlation_chart = {
     $schema: 'https://vega.github.io/schema/vega-lite/v6.json',
     description: 'Bar graph visualizing what metrics best correlate with popularity -- by genre',
@@ -59,7 +61,7 @@
         value: 'All',
         bind: {
           input: "select",
-          name: 'Genre: ',
+          name: 'Select Genre:   ',
           options: [
             'All','dance','hip-hop','pop','reggaeton','latino','latin','alt-rock','chill',
             'reggae','indie','rock','groove','folk','piano','country','funk','edm',
@@ -108,6 +110,7 @@
   };
 
   vegaEmbed('#popularity_correlation_chart', popularity_correlation_chart);
+  /************************************** Second Visualization: Radar Chart By Song/Artist ******************************************/
 
   const dropdownValuesTracks =  ["Unholy (feat. Kim Petras)",
       "Quevedo: Bzrp Music Sessions, Vol. 52",
@@ -580,6 +583,7 @@
     });
 
 
+  /************************************** Third Visualization: Explicit vs. Non-Explicit Histograms ******************************************/
   const explicitSample = getSample(explicitData)
   const nonExplicitSample = getSample(nonExplicitData)
   console.log("Type of explicit sample "+typeof(explicitSample));
@@ -603,7 +607,7 @@
     params: [ {
         name: 'metricParam', 
         value: 'popularity',
-        bind: {input: 'select', name: 'Metric: ', options: ['popularity', 'duration_ms', 'danceability', 'energy', 'loudness', 'speechiness', 'acousticness', 'instrumentalness', 'liveness', 'valence', 'tempo']}
+        bind: {input: 'select', name: 'Select Metric:   ', options: ['popularity', 'duration_ms', 'danceability', 'energy', 'loudness', 'speechiness', 'acousticness', 'instrumentalness', 'liveness', 'valence', 'tempo']}
     } ],
     facet: {column: {field: 'explicit', title: 'Using a random sample of 1000 songs each'}},
     spec: {
@@ -631,6 +635,7 @@
 }
 vegaEmbed('#explicit_chart',explicit_chart);
 
+/************************************** Fourth Visualization: Tempo vs. Length Scatterplot by Artist ******************************************/
 var tempo_length_plot = {
   $schema: 'https://vega.github.io/schema/vega-lite/v6.json',
   description: 'Scatterplot showing the relationship between average tempo, length, and loudness per artist',
@@ -647,16 +652,17 @@ var tempo_length_plot = {
       x: {
         field: 'duration',
         type: 'quantitative',
-        axis: {title: 'Average Duration (Mins)'},
+        axis: {title: 'Average Song Duration (Mins)'},
       },
       y: {
         field: 'tempo',
         type: 'quantitative',
-        axis: {title: 'Average Tempo (BPM)'}
+        axis: {title: 'Average Song Tempo (BPM)'}
       },
       size: {
         field: 'loudness',
-        type: 'quantitative'
+        type: 'quantitative',
+        legend: {title: 'Avg. Loudness (dB)' }
       },
       color: {value: '#2166ac'},
       tooltip: [
@@ -669,6 +675,7 @@ var tempo_length_plot = {
 }
 vegaEmbed('#tempo_length_plot',tempo_length_plot);
 
+/************************************** Fifth Visualization: Correlation Heatmap ******************************************/
   const heatSpec = {
     $schema: "https://vega.github.io/schema/vega-lite/v5.json",
     width: "container",
@@ -737,6 +744,8 @@ vegaEmbed('#tempo_length_plot',tempo_length_plot);
   });
 
   const heatView = heatResult.view;
+
+/************************************** Sixth Visualization: Linked Scatterplot to Heatmap ******************************************/
 
   const setBadge = (x, y, sampleCount) => {
     const infoBox = document.getElementById("infoBox");
