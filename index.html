@@ -167,16 +167,15 @@
             params: [ {
                 name: 'metricParam', 
                 value: 'popularity',
-                bind: {input: 'select', name: 'Metric: ', options: ['duration_ms', 'danceability', 'energy', 'loudness', 'speechiness', 'acousticness', 'instrumentalness', 'liveness', 'valence', 'tempo']}
+                bind: {input: 'select', name: 'Metric: ', options: ['popularity', 'duration_ms', 'danceability', 'energy', 'loudness', 'speechiness', 'acousticness', 'instrumentalness', 'liveness', 'valence', 'tempo']}
             } ],
-            
             facet: {column: {field: 'explicit'}},
             spec: {
-                transform: [{density: 'metricParam', groupby: ['explicit']}],
+                transform: [{calculate:'datum[metricParam]', as: 'metricValue'}],
                 mark: {type: 'bar'},
                 encoding: {
-                x: {field: 'value', type: 'quantitative', bin: { maxbins: 20 }},
-                y: {field: 'density', type: 'quantitative'},
+                x: {field: 'metricValue', type: 'quantitative', bin: {maxbins: 20}},
+                y: {aggregate: 'count', type: 'quantitative'},
                 color: { 
                     field: 'explicit', 
                     type: 'nominal', 
@@ -184,7 +183,7 @@
                         domain: ['True', 'False'], 
                         range: ['red', 'green']  
                 }},
-                },
+                }
             }
         }
         vegaEmbed('#explicit_chart',explicit_chart);
