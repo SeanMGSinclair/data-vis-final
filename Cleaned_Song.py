@@ -166,7 +166,7 @@ df["track_genre"] = df["track_genre"].apply(map_genre)
 
 columns_to_use = [
     "track_name", "artists", "track_genre",
-    "popularity", "danceability", "energy", "loudness", "mode", "speechiness",
+    "popularity", "danceability", "energy", "loudness", "duration_ms", "speechiness",
     "acousticness", "instrumentalness", "liveness", "valence", "tempo"
 ]
 
@@ -179,9 +179,13 @@ print(f"Rows with missing values removed: {before_na - after_na}")
 
 
 numeric_cols = [
-    "popularity", "danceability", "energy", "loudness", "mode", "speechiness",
+    "popularity", "danceability", "energy", "loudness", "duration_ms", "speechiness",
     "acousticness", "instrumentalness", "liveness", "valence", "tempo"
 ]
+
+corr = final_df[numeric_cols].corr()
+corr.index.name = "feature"
+corr.to_csv('corr10.csv')
 
 '''
 for col in numeric_cols:
