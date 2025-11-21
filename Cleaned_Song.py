@@ -15,116 +15,143 @@ print(f"Duplicate rows removed: {before_dupes - after_dupes}")
 df["track_genre"] = df["track_genre"].astype(str).str.lower()
 
 genre_mapping = {
-    # 1. Acoustic / Folk
-    "acoustic": "Acoustic / Folk",
-    "folk": "Acoustic / Folk",
-    "singer-songwriter": "Acoustic / Folk",
-    "guitar": "Acoustic / Folk",
-    "bluegrass": "Acoustic / Folk",
-    "honky-tonk": "Acoustic / Folk",
-    "country": "Acoustic / Folk",
+    # Pop
+    "pop": "Pop",
+    "k-pop": "Pop",
+    "indie-pop": "Pop",
+    "synth-pop": "Pop",
+    "power-pop": "Pop",
+    "pop-film": "Pop",
+    "cantopop": "Pop",
+    "mandopop": "Pop",
+    "j-pop": "Pop",
+    "j-idol": "Pop",
 
-    # 2. Rock – Alternative / Indie
-    "alt-rock": "Rock – Alternative / Indie",
-    "alternative": "Rock – Alternative / Indie",
-    "indie": "Rock – Alternative / Indie",
-    "grunge": "Rock – Alternative / Indie",
-    "british": "Rock – Alternative / Indie",
+    # Rock & Alternative
+    "rock": "Rock & Alternative",
+    "alt-rock": "Rock & Alternative",
+    "hard-rock": "Rock & Alternative",
+    "punk": "Rock & Alternative",
+    "punk-rock": "Rock & Alternative",
+    "emo": "Rock & Alternative",
+    "grunge": "Rock & Alternative",
+    "garage": "Rock & Alternative",
+    "psych-rock": "Rock & Alternative",
+    "industrial": "Rock & Alternative",
+    "metal": "Rock & Alternative",
+    "hardcore": "Rock & Alternative",
+    "rockabilly": "Rock & Alternative",
+    "j-rock": "Rock & Alternative",
+    "goth": "Rock & Alternative",
+    "heavy-metal": "Rock & Alternative",
+    "death-metal": "Rock & Alternative",
+    "metalcore": "Rock & Alternative",
+    "black-metal": "Rock & Alternative",
+    "grindcore": "Rock & Alternative",
+    "rock-n-roll": "Rock & Alternative",
+    "alternative": "Rock & Alternative",
+    "british": "Rock & Alternative",
 
-    # 3. Rock – Core / Punk
-    "punk": "Rock – Core / Punk",
-    "emo": "Rock – Core / Punk",
-    "hardcore": "Rock – Core / Punk",
+    # Dance & Electronic
+    "dance": "Dance & Electronic",
+    "edm": "Dance & Electronic",
+    "electro": "Dance & Electronic",
+    "electronic": "Dance & Electronic",
+    "techno": "Dance & Electronic",
+    "house": "Dance & Electronic",
+    "deep-house": "Dance & Electronic",
+    "progressive-house": "Dance & Electronic",
+    "minimal-techno": "Dance & Electronic",
+    "detroit-techno": "Dance & Electronic",
+    "club": "Dance & Electronic",
+    "dubstep": "Dance & Electronic",
+    "trance": "Dance & Electronic",
+    "trip-hop": "Dance & Electronic",
+    "drum-and-bass": "Dance & Electronic",
+    "idm": "Dance & Electronic",
+    "breakbeat": "Dance & Electronic",
 
-    # 4. Rock – Classic / Mainstream
-    "rock": "Rock – Classic / Mainstream",
-    "rock-n-roll": "Rock – Classic / Mainstream",
-    "hard-rock": "Rock – Classic / Mainstream",
+    # Hip-hop
+    "hip-hop": "Hip-hop",
+    "r-n-b": "Hip-hop",
+    "soul": "Hip-hop",
+    "funk": "Hip-hop",
+    "groove": "Hip-hop",
 
-    # 5. Metal
-    "metal": "Metal",
+    # Latin
+    "latin": "Latin",
+    "latino": "Latin",
+    "spanish": "Latin",
+    "reggaeton": "Latin",
+    "salsa": "Latin",
+    "samba": "Latin",
+    "brazil": "Latin",
+    "mpb": "Latin",
+    "forro": "Latin",
+    "pagode": "Latin",
 
-    # 6. Electronic – House
-    "house": "Electronic – House",
-    "deep-house": "Electronic – House",
+    # Folk & Country
+    "folk": "Folk & Country",
+    "country": "Folk & Country",
+    "bluegrass": "Folk & Country",
+    "honky-tonk": "Folk & Country",
 
-    # 7. Electronic – Techno / Trance
-    "techno": "Electronic – Techno / Trance",
-    "trance": "Electronic – Techno / Trance",
+    # Jazz & Blues
+    "jazz": "Jazz & Blues",
+    "blues": "Jazz & Blues",
 
-    # 8. Electronic – EDM / Dance
-    "edm": "Electronic – EDM / Dance",
-    "dance": "Electronic – EDM / Dance",
-    "club": "Electronic – EDM / Dance",
-    "disco": "Electronic – EDM / Dance",
+    # Classical
+    "classical": "Classical",
+    "opera": "Classical",
 
-    # 9. Electronic – Bass / DnB / Dub
-    "drum-and-bass": "Electronic – Bass / DnB / Dub",
-    "dubstep": "Electronic – Bass / DnB / Dub",
-    "breakbeat": "Electronic – Bass / DnB / Dub",
 
-    # 10. Electronic – Ambient / Chill / Sleep
-    "ambient": "Electronic – Ambient / Chill / Sleep",
-    "chill": "Electronic – Ambient / Chill / Sleep",
+    # Acoustic & Singer-songwriter
+    "acoustic": "Acoustic & Singer-songwriter",
+    "piano": "Acoustic & Singer-songwriter",
+    "singer-songwriter": "Acoustic & Singer-songwriter",
+    "songwriter": "Acoustic & Singer-songwriter",
+    "guitar": "Acoustic & Singer-songwriter",
 
-    # 11. Hip-Hop / R&B
-    "hip-hop": "Hip-Hop / R&B",
-    "r-n-b": "Hip-Hop / R&B",
-    "soul": "Hip-Hop / R&B",
+    # Chill & Ambient
+    "chill": "Chill & Ambient",
+    "ambient": "Chill & Ambient",
+    "sleep": "Chill & Ambient",
+    "study": "Chill & Ambient",
+    "new-age": "Chill & Ambient",
 
-    # 12. Jazz
-    "jazz": "Jazz",
+    # World
+    "indian": "World",
+    "turkish": "World",
+    "iranian": "World",
+    "german": "World",
+    "french": "World",
+    "swedish": "World",
+    "malay": "World",
+    "world-music": "World",
+    "afrobeat": "World",
+    "tango": "World",
 
-    # 13. Blues
-    "blues": "Blues",
+    # Reggae & Dub
+    "reggae": "Reggae & Dub",
+    "dub": "Reggae & Dub",
+    "dancehall": "Reggae & Dub",
 
-    # 14. Classical / Opera
-    "classical": "Classical / Opera",
-    "opera": "Classical / Opera",
+    #Children
+    "children": "Children",
+    "kids": "Children",
+    "disney": "Children",
+    "comedy": "Children",
 
-    # 15. Musical Theatre / Show Tunes
-    "show-tunes": "Musical Theatre / Show Tunes",
-    "comedy": "Musical Theatre / Show Tunes",
+    # Show Tunes
+    "show-tunes": "Show Tunes",
 
-    # 16. Children / Kids
-    "children": "Children / Kids",
-    "kids": "Children / Kids",
-    "disney": "Children / Kids",
-
-    # 17. Latin – General
-    "latin": "Latin – General",
-
-    # 18. Latin – Brazil
-    "brazil": "Latin – Brazil",
-    "samba": "Latin – Brazil",
-
-    # 19. Latin – Dance / Caribbean
-    "reggaeton": "Latin – Dance / Caribbean",
-    "dancehall": "Latin – Dance / Caribbean",
-    "reggae": "Latin – Dance / Caribbean",
-
-    # 20. Asian – Chinese / HK / Taiwan
-    "cantopop": "Asian – Chinese / HK / Taiwan",
-    "mandopop": "Asian – Chinese / HK / Taiwan",
-
-    # 21. Asian – Japan
-    "j-pop": "Asian – Japan",
-    "anime": "Asian – Japan",
-
-    # 22. Asian – Korea
-    "k-pop": "Asian – Korea",
-
-    # 23. South Asia / Middle East
-    "indian": "South Asia / Middle East",
-
-    # 24. African & Afro-Fusion
-    "afro": "African & Afro-Fusion",
-    "afrobeat": "African & Afro-Fusion",
-
-    # 25. Mood / Miscellaneous
-    "romance": "Mood / Miscellaneous",
-    "happy": "Mood / Miscellaneous",
-    "party": "Mood / Miscellaneous"
+    # Other
+    "anime": "Other",
+    "party": "Other",
+    "happy": "Other",
+    "romance": "Other",
+    "chicago-house": "Other",
+    "indie": "Other"
 }
 
 def map_genre(raw_genre):
