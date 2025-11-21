@@ -50,7 +50,7 @@
   var popularity_correlation_chart = {
     $schema: 'https://vega.github.io/schema/vega-lite/v6.json',
     description: 'Bar graph visualizing what metrics best correlate with popularity -- by genre',
-    title: 'What Best Correlates With Popularity?',
+    title: '',
     data: {url:'popularity_correlation.csv'},
     width: 600,
     height: 300,
@@ -127,14 +127,14 @@
   var explicit_chart = {
     $schema: 'https://vega.github.io/schema/vega-lite/v6.json',
     description: 'Faceted histograms displaying various differences between explicit and non-explicit songs',
-    title: 'How do Explicit and Non-Explicit Songs Compare?',
+    title: '',
     data: {values: totalSample},
     params: [ {
         name: 'metricParam', 
         value: 'popularity',
         bind: {input: 'select', name: 'Metric: ', options: ['popularity', 'duration_ms', 'danceability', 'energy', 'loudness', 'speechiness', 'acousticness', 'instrumentalness', 'liveness', 'valence', 'tempo']}
     } ],
-    facet: {column: {field: 'explicit', title: 'Non-Explicit (Blue) vs. Explicit (Red)'}},
+    facet: {column: {field: 'explicit', title: 'Using a random sample of 1000 songs each'}},
     spec: {
         transform: [{calculate:'datum[metricParam]', as: 'metricValue'}, 
           { bin: { maxbins: 20 }, field: "metricValue", as: ["bin_start", "bin_end"] }],
@@ -146,7 +146,7 @@
             field: 'explicit', 
             type: 'nominal', 
             scale: {
-                domain: ['True', 'False'], 
+                domain: ['Explicit', 'Non-Explicit'], 
                 range: ['red', 'blue']  
             }
         },
@@ -163,10 +163,10 @@ vegaEmbed('#explicit_chart',explicit_chart);
 var tempo_length_plot = {
   $schema: 'https://vega.github.io/schema/vega-lite/v6.json',
   description: 'Scatterplot showing the relationship between average tempo, length, and loudness per artist',
-  title: 'Average Tempo vs. Length in Popular Artists\' Songs',
+  title: '',
   width: 800,
   data: {url: 'artist_stats.csv'},
-  "params": [{
+  params: [{
     name: 'zoom',
     select: 'interval',
     bind: 'scales'
@@ -308,6 +308,11 @@ vegaEmbed('#tempo_length_plot',tempo_length_plot);
       $schema: "https://vega.github.io/schema/vega-lite/v5.json",
       width: "container",
       height: "container",
+      params: [{
+        name: 'zoom',
+        select: 'interval',
+        bind: 'scales'
+      }],
       autosize: { type: "fit", contains: "padding" },
       data: { values: sample },
       mark: { type: "point", tooltip: true, opacity: 0.85 },
