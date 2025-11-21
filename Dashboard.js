@@ -134,7 +134,7 @@
         value: 'popularity',
         bind: {input: 'select', name: 'Metric: ', options: ['popularity', 'duration_ms', 'danceability', 'energy', 'loudness', 'speechiness', 'acousticness', 'instrumentalness', 'liveness', 'valence', 'tempo']}
     } ],
-    facet: {column: {field: 'explicit', title: 'Non-Explicit (Green) vs. Explicit (Red)'}},
+    facet: {column: {field: 'explicit', title: 'Non-Explicit (Blue) vs. Explicit (Red)'}},
     spec: {
         transform: [{calculate:'datum[metricParam]', as: 'metricValue'}, 
           { bin: { maxbins: 20 }, field: "metricValue", as: ["bin_start", "bin_end"] }],
