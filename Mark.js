@@ -30,43 +30,6 @@
 
   const songsData = parsedSongs.data;
 
-  const allowedGenres = new Set([
-    "Acoustic / Folk",
-    "African & Afro-Fusion",
-    "Rock – Alternative / Indie",
-    "Electronic – Ambient / Chill / Sleep",
-    "Asian – Japan",
-    "Metal",
-    "Blues",
-    "Latin – Brazil",
-    "Electronic – Bass / DnB / Dub",
-    "Asian – Chinese / HK / Taiwan",
-    "Electronic – House",
-    "Children / Kids",
-    "Classical / Opera",
-    "Electronic – EDM / Dance",
-    "Musical Theatre / Show Tunes",
-    "Latin – Dance / Caribbean",
-    "Electronic – Techno / Trance",
-    "Rock – Core / Punk",
-    "Mood / Miscellaneous",
-    "Hip-Hop / R&B",
-    "Rock – Classic / Mainstream",
-    "South Asia / Middle East",
-    "Jazz",
-    "Asian – Korea",
-    "Latin – General"
-  ]);
-
-  songsData.forEach(r => {
-    let g = (r.track_genre || "Other")
-      .replace(/\s+/g, " ")
-      .replace(/[–—]/g, "–")
-      .trim();
-
-    r.track_genre = allowedGenres.has(g) ? g : "Other";
-  });
-
   const heatSpec = {
     $schema: "https://vega.github.io/schema/vega-lite/v5.json",
     width: "container",
@@ -191,7 +154,7 @@
           type: "quantitative",
           axis: { title: prettyLabel(yField) }
         },
-        color: { field: "track_genre", type: "nominal", legend: { title: "Genre" } },
+        color: { field: "track_genre", type: "nominal", legend: { title: "Genre"} },
         size: { value: 60 },
         tooltip: [
           { field: "track_name", type: "nominal", title: "Song" },
