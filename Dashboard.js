@@ -147,7 +147,7 @@
             type: 'nominal', 
             scale: {
                 domain: ['Explicit', 'Non-Explicit'], 
-                range: ['red', 'blue']  
+                range: ['#b2182b', '#2166ac']  
             }
         },
         tooltip: [
@@ -187,7 +187,7 @@ var tempo_length_plot = {
         field: 'loudness',
         type: 'quantitative'
       },
-      color: {value: '#1db954'},
+      color: {value: '#2166ac'},
       tooltip: [
         {field: 'artist'},
         {field: 'duration'},
