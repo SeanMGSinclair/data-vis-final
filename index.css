@@ -1,5 +1,3 @@
-/*.vega-embed {
-    display: flex;
-    flex-direction: row-reverse;
-    align-items: flex-start;
-}*/
+#popularity_correlation_chart {
+    padding-left: 20%;
+}
