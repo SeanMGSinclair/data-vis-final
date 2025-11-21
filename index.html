@@ -23,184 +23,38 @@
 
   <body>
     <div id="popularity_correlation_chart"></div>
-    <div id="explicit_chart"></div>
+    
+    <div class="section">
+        <div id="popularity_correlation_chart"></div>
+      </div>
+
+    <div class="section">
+      <div id="explicit_chart"></div>
+    </div>
+
+      <div class="section">
+        <div class="header-row">
+          <h1>Correlation Heatmap</h1>
+        </div>
+  
+        <p class="note">Double click the heatmap to clear the selection.</p>
+  
+        <div class="container">
+          <div id="vis"></div>
+  
+          <div class="right-panel">
+            <h1 class="scatter-top-title">Scatter Plot</h1>
+  
+            <p id="infoBox">
+              No pair selected, click a square on the heatmap to see the scatter plot.
+            </p>
+  
+            <div id="scatter"></div>
+          </div>
+        </div>
+      </div>
     
     <script type="text/javascript">
-
-        var popularity_correlation_chart = {
-            $schema: 'https://vega.github.io/schema/vega-lite/v6.json',
-            description: 'Bar graph visualizing what metrics best correlate with popularity -- by genre',
-            title: 'What Best Correlates With Popularity?',
-            data: {url:'popularity_correlation.csv'},
-            params: [ {
-                    name: 'genreParam',
-                    value: 'All',
-                    bind: {input: "select", name:'Genre: ', options: [
-                                                                'All',
-                                                                'dance',
-                                                                'hip-hop',
-                                                                'pop',
-                                                                'reggaeton',
-                                                                'latino',
-                                                                'latin',
-                                                                'alt-rock',
-                                                                'chill',
-                                                                'reggae',
-                                                                'indie',
-                                                                'rock',
-                                                                'groove',
-                                                                'folk',
-                                                                'piano',
-                                                                'country',
-                                                                'funk',
-                                                                'edm',
-                                                                'k-pop',
-                                                                'soul',
-                                                                'indian',
-                                                                'british',
-                                                                'electro',
-                                                                'alternative',
-                                                                'synth-pop',
-                                                                'emo',
-                                                                'indie-pop',
-                                                                'techno',
-                                                                'r-n-b',
-                                                                'metal',
-                                                                'house',
-                                                                'sleep',
-                                                                'hard-rock',
-                                                                'blues',
-                                                                'pagode',
-                                                                'trance',
-                                                                'german',
-                                                                'disco',
-                                                                'garage',
-                                                                'sad',
-                                                                'singer-songwriter',
-                                                                'anime',
-                                                                'dancehall',
-                                                                'punk',
-                                                                'swedish',
-                                                                'acoustic',
-                                                                'brazil',
-                                                                'progressive-house',
-                                                                'power-pop',
-                                                                'spanish',
-                                                                'rockabilly',
-                                                                'hardcore',
-                                                                'pop-film',
-                                                                'grunge',
-                                                                'ambient',
-                                                                'french',
-                                                                'punk-rock',
-                                                                'psych-rock',
-                                                                'chicago-house',
-                                                                'j-pop',
-                                                                'songwriter',
-                                                                'jazz',
-                                                                'j-rock',
-                                                                'children',
-                                                                'turkish',
-                                                                'electronic',
-                                                                'salsa',
-                                                                'deep-house',
-                                                                'rock-n-roll',
-                                                                'industrial',
-                                                                'show-tunes',
-                                                                'comedy',
-                                                                'ska',
-                                                                'afrobeat',
-                                                                'j-dance',
-                                                                'dub',
-                                                                'party',
-                                                                'death-metal',
-                                                                'metalcore',
-                                                                'disney',
-                                                                'cantopop',
-                                                                'mandopop',
-                                                                'world-music',
-                                                                'idm',
-                                                                'classical',
-                                                                'dubstep',
-                                                                'bluegrass',
-                                                                'new-age',
-                                                                'drum-and-bass',
-                                                                'samba',
-                                                                'minimal-techno',
-                                                                'opera',
-                                                                'trip-hop',
-                                                                'goth',
-                                                                'mpb',
-                                                                'club',
-                                                                'hardstyle',
-                                                                'happy',
-                                                                'malay',
-                                                                'breakbeat',
-                                                                'sertanejo',
-                                                                'kids',
-                                                                'heavy-metal',
-                                                                'forro',
-                                                                'guitar',
-                                                                'j-idol',
-                                                                'gospel',
-                                                                'black-metal',
-                                                                'honky-tonk',
-                                                                'study',
-                                                                'detroit-techno',
-                                                                'tango',
-                                                                'grindcore',
-                                                                'romance',
-                                                                'iranian'
-                                                                ]}
-                }
-            ],
-            transform: [{filter: 'datum.Genre === genreParam'}],
-            mark: 'bar',
-            encoding: {
-                x: {
-                    field: 'Correlation', 
-                    type: 'quantitative', 
-                    axis: {title: 'Correlation Coefficient'},
-                    scale: {domain: [-1.0,1.0]}
-                },
-                y: {field: 'Metric', type: 'nominal', sort: {field: 'Correlation', order: 'descending'}},
-                color: {value: "DarkBlue"},
-                tooltip: [ {field: 'Metric'},
-                {field: 'Correlation'},
-                {field: 'Genre'} ]
-            },
-        };
-        vegaEmbed('#popularity_correlation_chart',popularity_correlation_chart);
-      
-
-        var explicit_chart = {
-            $schema: 'https://vega.github.io/schema/vega-lite/v6.json',
-            description: 'Faceted histograms displaying various differences between explicit and non-explicit songs',
-            title: 'How do Explicit and Non-Explicit Songs Compare?',
-            data: {url:'clean_dataset.csv'},
-            params: [ {
-                name: 'metricParam', 
-                value: 'popularity',
-                bind: {input: 'select', name: 'Metric: ', options: ['popularity', 'duration_ms', 'danceability', 'energy', 'loudness', 'speechiness', 'acousticness', 'instrumentalness', 'liveness', 'valence', 'tempo']}
-            } ],
-            facet: {column: {field: 'explicit'}},
-            spec: {
-                transform: [{calculate:'datum[metricParam]', as: 'metricValue'}],
-                mark: {type: 'bar'},
-                encoding: {
-                x: {field: 'metricValue', type: 'quantitative', bin: {maxbins: 20}},
-                y: {aggregate: 'count', type: 'quantitative'},
-                color: { 
-                    field: 'explicit', 
-                    type: 'nominal', 
-                    scale: {
-                        domain: ['True', 'False'], 
-                        range: ['red', 'green']  
-                }},
-                }
-            }
-        }
-        vegaEmbed('#explicit_chart',explicit_chart);
     </script>
 
     <script src="Dashboard.js"></script>

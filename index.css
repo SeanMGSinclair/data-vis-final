@@ -2,4 +2,9 @@
 #popularity_correlation_chart {
     padding-left: 20%;
 }
+#explicit_chart {
+    padding-left: 20%;
+    padding-bottom: 5%;
+    padding-top: 5%;
+}
 

@@ -45,7 +45,6 @@
 
   const songsData = parsedSongs.data;
   const explicitData = parsedExplicit.data;
-  console.log(explicitData)
   const nonExplicitData = parsedNonExplicit.data;
   
   var popularity_correlation_chart = {
