@@ -232,13 +232,13 @@
     }
 
     autocompleteTrack(document.getElementById("dropdownInputTrack"), dropdownValuesTracks);
-  
+
   var song_radar_chart = {
       "$schema": "https://vega.github.io/schema/vega/v6.json",
       "description": "Radar chart for a specific song from CSV",
       "width": 600,
       "height": 600,
-      "padding": {"top":75,"left":0,"right":200,"bottom":100},
+      "padding": {"top":75,"left":50,"right":200,"bottom":100},
       "autosize": {"type":"none","contains":"padding"},
       "signals": [
         {"name": "radius", "update": "width / 2"},
