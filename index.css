@@ -16,9 +16,18 @@
     text-align: center;
 }
 
+#artists_radar_chart {
+    padding-left:20%
+}
+
+#song_radar_chart {
+    padding-left: 20%
+}
+
 .autocomplete {
       position: relative;
-      display: inline-block;
+      display: block;
+      padding-left: 20%;
     }
     .autocomplete-items {
       position: absolute;
