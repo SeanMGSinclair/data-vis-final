@@ -13,9 +13,11 @@ df.to_csv('clean_dataset.csv')
 df = df.drop_duplicates(subset=['track_genre'])
 genres = df['track_genre'].tolist()
 
+genres.sort()
+
 with open('genres.txt', 'w') as f:
     for genre in genres: 
-        f.write(f'{genre}\n')
+        f.write(f'\'{genre}\',\n')
 
 
 
