@@ -54,8 +54,8 @@
     description: 'Bar graph visualizing what metrics best correlate with popularity -- by genre',
     title: '',
     data: { url: 'popularity_correlation.csv' },
-    width: 600,
-    height: 300,
+    width: 'container',
+    height: 'container',
     params: [{
       name: 'genreParam',
       value: 'All',
@@ -748,6 +748,8 @@
   var explicit_chart = {
     $schema: 'https://vega.github.io/schema/vega-lite/v6.json',
     description: 'Faceted histograms displaying various differences between explicit and non-explicit songs',
+    width: 'container',
+    height: 'container',
     title: '',
     data: { values: totalSample },
     params: [{
@@ -757,6 +759,7 @@
     }],
     facet: { column: { field: 'explicit', title: 'Using a random sample of 1000 songs each' } },
     spec: {
+    width: 500,
       transform: [{ calculate: 'datum[metricParam]', as: 'metricValue' },
       { bin: { maxbins: 20 }, field: "metricValue", as: ["bin_start", "bin_end"] }],
       mark: { type: 'bar', stroke: "black", strokeWidth: '1px' },
@@ -785,8 +788,8 @@
   var tempo_length_plot = {
     $schema: 'https://vega.github.io/schema/vega-lite/v6.json',
     description: 'Scatterplot showing the relationship between average tempo, length, and loudness per artist',
+    width: 'container',
     title: '',
-    width: 800,
     data: { url: 'artist_stats.csv' },
     params: [{
       name: 'zoom',
