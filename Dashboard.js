@@ -336,8 +336,8 @@
   var song_radar_chart = {
     "$schema": "https://vega.github.io/schema/vega/v6.json",
     "description": "Radar chart for a specific song from CSV",
-    "width": 600,
-    "height": 600,
+    "width": 500,
+    "height": 500,
     "padding": { "top": 75, "left": 50, "right": 200, "bottom": 100 },
     "autosize": { "type": "none", "contains": "padding" },
     "signals": [
@@ -428,7 +428,7 @@
             "interpolate": { "value": "linear-closed" },
             "x": { "signal": "radius*cos(scale('angular',datum.key))" },
             "y": { "signal": "radius*sin(scale('angular',datum.key))" },
-            "stroke": { "value": "lightgray" }, "strokeWidth": { "value": 1 }
+            "stroke": { "value": "black" }, "strokeWidth": { "value": 1 }
           }
         }
       },
@@ -439,7 +439,7 @@
             "x": { "value": 0 }, "y": { "value": 0 },
             "x2": { "signal": "radius*cos(scale('angular',datum.key))" },
             "y2": { "signal": "radius*sin(scale('angular',datum.key))" },
-            "stroke": { "value": "lightgray" }, "strokeWidth": { "value": 1 }
+            "stroke": { "value": "black" }, "strokeWidth": { "value": 1 }
           }
         }
       },
@@ -583,8 +583,8 @@
   var artists_radar_chart = {
     "$schema": "https://vega.github.io/schema/vega/v6.json",
     "description": "Radar chart for a specific song from CSV",
-    "width": 600,
-    "height": 600,
+    "width": 500,
+    "height": 500,
     "padding": { "top": 75, "left": 50, "right": 200, "bottom": 100 },
     "autosize": { "type": "none", "contains": "padding" },
     "signals": [
@@ -680,7 +680,7 @@
             "interpolate": { "value": "linear-closed" },
             "x": { "signal": "radius*cos(scale('angular',datum.key))" },
             "y": { "signal": "radius*sin(scale('angular',datum.key))" },
-            "stroke": { "value": "lightgray" }, "strokeWidth": { "value": 1 }
+            "stroke": { "value": "black" }, "strokeWidth": { "value": 1 }
           }
         }
       },
@@ -691,7 +691,7 @@
             "x": { "value": 0 }, "y": { "value": 0 },
             "x2": { "signal": "radius*cos(scale('angular',datum.key))" },
             "y2": { "signal": "radius*sin(scale('angular',datum.key))" },
-            "stroke": { "value": "lightgray" }, "strokeWidth": { "value": 1 }
+            "stroke": { "value": "black" }, "strokeWidth": { "value": 1 }
           }
         }
       },
