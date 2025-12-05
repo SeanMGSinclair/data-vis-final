@@ -1,4 +1,15 @@
 (async function () {
+  /****************************** Starting Dropdown Menu ******************************************/
+    document.querySelector('.dropdown-btn').addEventListener('click', () => {
+      const menu = document.querySelector('.dropdown-content');
+      menu.style.display = (menu.style.display === "block") ? "none" : "block";
+    });
+
+    document.querySelectorAll('.dropdown-content a').forEach(link => {
+      link.addEventListener('click', () => {
+        document.querySelector('.dropdown-content').style.display = "none";
+      });
+    });
   /****************************** Javascript Data Munging ******************************************/
   const DEFAULT_SAMPLE_SIZE = 100;
   const prettyLabel = s => s.charAt(0).toUpperCase() + s.slice(1);
@@ -999,3 +1010,4 @@
     buildScatter(null, null, DEFAULT_SAMPLE_SIZE);
   });
 })();
+
