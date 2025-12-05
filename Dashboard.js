@@ -54,8 +54,8 @@
     description: 'Bar graph visualizing what metrics best correlate with popularity -- by genre',
     title: '',
     data: { url: 'popularity_correlation.csv' },
-    width: 600,
-    height: 300,
+    width: 'container',
+    height: 'container',
     params: [{
       name: 'genreParam',
       value: 'All',
@@ -336,8 +336,8 @@
   var song_radar_chart = {
     "$schema": "https://vega.github.io/schema/vega/v6.json",
     "description": "Radar chart for a specific song from CSV",
-    "width": 600,
-    "height": 600,
+    "width": 500,
+    "height": 500,
     "padding": { "top": 75, "left": 50, "right": 200, "bottom": 100 },
     "autosize": { "type": "none", "contains": "padding" },
     "signals": [
@@ -428,7 +428,7 @@
             "interpolate": { "value": "linear-closed" },
             "x": { "signal": "radius*cos(scale('angular',datum.key))" },
             "y": { "signal": "radius*sin(scale('angular',datum.key))" },
-            "stroke": { "value": "lightgray" }, "strokeWidth": { "value": 1 }
+            "stroke": { "value": "black" }, "strokeWidth": { "value": 1 }
           }
         }
       },
@@ -439,7 +439,7 @@
             "x": { "value": 0 }, "y": { "value": 0 },
             "x2": { "signal": "radius*cos(scale('angular',datum.key))" },
             "y2": { "signal": "radius*sin(scale('angular',datum.key))" },
-            "stroke": { "value": "lightgray" }, "strokeWidth": { "value": 1 }
+            "stroke": { "value": "black" }, "strokeWidth": { "value": 1 }
           }
         }
       },
@@ -583,8 +583,8 @@
   var artists_radar_chart = {
     "$schema": "https://vega.github.io/schema/vega/v6.json",
     "description": "Radar chart for a specific song from CSV",
-    "width": 600,
-    "height": 600,
+    "width": 500,
+    "height": 500,
     "padding": { "top": 75, "left": 50, "right": 200, "bottom": 100 },
     "autosize": { "type": "none", "contains": "padding" },
     "signals": [
@@ -680,7 +680,7 @@
             "interpolate": { "value": "linear-closed" },
             "x": { "signal": "radius*cos(scale('angular',datum.key))" },
             "y": { "signal": "radius*sin(scale('angular',datum.key))" },
-            "stroke": { "value": "lightgray" }, "strokeWidth": { "value": 1 }
+            "stroke": { "value": "black" }, "strokeWidth": { "value": 1 }
           }
         }
       },
@@ -691,7 +691,7 @@
             "x": { "value": 0 }, "y": { "value": 0 },
             "x2": { "signal": "radius*cos(scale('angular',datum.key))" },
             "y2": { "signal": "radius*sin(scale('angular',datum.key))" },
-            "stroke": { "value": "lightgray" }, "strokeWidth": { "value": 1 }
+            "stroke": { "value": "black" }, "strokeWidth": { "value": 1 }
           }
         }
       },
@@ -748,6 +748,8 @@
   var explicit_chart = {
     $schema: 'https://vega.github.io/schema/vega-lite/v6.json',
     description: 'Faceted histograms displaying various differences between explicit and non-explicit songs',
+    width: 'container',
+    height: 'container',
     title: '',
     data: { values: totalSample },
     params: [{
@@ -757,6 +759,7 @@
     }],
     facet: { column: { field: 'explicit', title: 'Using a random sample of 1000 songs each' } },
     spec: {
+    width: 500,
       transform: [{ calculate: 'datum[metricParam]', as: 'metricValue' },
       { bin: { maxbins: 20 }, field: "metricValue", as: ["bin_start", "bin_end"] }],
       mark: { type: 'bar', stroke: "black", strokeWidth: '1px' },
@@ -785,8 +788,8 @@
   var tempo_length_plot = {
     $schema: 'https://vega.github.io/schema/vega-lite/v6.json',
     description: 'Scatterplot showing the relationship between average tempo, length, and loudness per artist',
+    width: 'container',
     title: '',
-    width: 800,
     data: { url: 'artist_stats.csv' },
     params: [{
       name: 'zoom',
@@ -805,12 +808,13 @@
         type: 'quantitative',
         axis: { title: 'Average Song Tempo (BPM)' }
       },
-      size: {
+      color: {
         field: 'loudness',
         type: 'quantitative',
+        scale: { domain: [-20, -10, 0], range: ["#b2182b", "#f7f7f7", "#2166ac"] },
         legend: { title: 'Avg. Loudness (dB)' }
       },
-      color: { value: '#2166ac' },
+      
       tooltip: [
         { field: 'artist' },
         { field: 'duration' },

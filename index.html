@@ -1,88 +1,99 @@
-
 <!doctype html>
 <html>
-  <head>
-    <meta charset="utf-8" />
-    <title>Combined Visualizations</title>
 
-    <script src="https://cdn.jsdelivr.net/npm/vega@6.2.0"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vega-lite@6.4.0"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vega-embed@7.0.2"></script>
+<head>
+  <meta charset="utf-8" />
+  <title>Combined Visualizations</title>
 
-    <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega@6.2.0"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-lite@6.4.0"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-embed@7.0.2"></script>
 
-    <link rel="stylesheet" href="index.css">
-    <link rel="stylesheet" href="Mark.css">
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
 
-    <style>
-      .section {
-        margin-bottom: 70px;
-      }
-    </style>
-  </head>
+  <link rel="stylesheet" href="index.css">
+  <link rel="stylesheet" href="Mark.css">
 
-  <body>
-    <h1 class="vis-heading">Unwrapping the Data: All About Music On Spotify</h1>
-    <div class="section">
-        <h2 class="vis-heading">What Best Correlates With Popularity?</h2>
-        <div id="popularity_correlation_chart"></div>
-        
+  <style>
+    .section {
+      margin-bottom: 70px;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1 class="vis-heading">Unwrapping the Data: All About Music On <img
+      src="https://1000logos.net/wp-content/uploads/2017/11/Spotify-Logo.png" alt="Spotify"
+      style="width: 10%; height: auto; vertical-align: middle;"> </h1>
+      <a href="#vis"> Click here if you want to see a correlation heatmap </a>
+  </header>
+  
+  <div class="section">
+    <h2 class="vis-heading">What Best Correlates With Popularity?</h2>
+    <div id="popularity_correlation_chart"></div>
+
+  </div>
+
+  <div class="section">
+    <div class="radars">
+      <div class="radar_item">
+        <h2 class="vis-heading">Song's Musical Attributes (Rated by Listeners) </h2>
+        <div id="song_radar_chart"></div>
+        <div class="autocomplete" style="width:300px; margin-bottom: 10px;">
+          Enter Track Name: <input id="dropdownInputTrack" type="text" name="trackInput">
+        </div>
       </div>
-    
-    <div class="section">
-    <h2 class="vis-heading">Song's Musical Attributes (Rated by Listeners) </h2>
-    <div id="song_radar_chart"></div>
-    <div class="autocomplete" style="width:300px; margin-bottom: 10px;">
-        Enter Track Name: <input id="dropdownInputTrack" type="text" name="trackInput">
+      <div class="radar_item">
+        <h2 class="vis-heading">Artist's Discography Average Attributes</h2>
+        <div id="artists_radar_chart"></div>
+        <div class="autocomplete" style="width:300px; margin-bottom: 10px;">
+          Enter Artist Name: <input id="dropdownInputArtist" type="text" name="artistInput">
+        </div>
+      </div>
     </div>
+  </div>
 
-    <div class="section">
-      <h2 class="vis-heading">Artist's Discography Average Attributes</h2>
-      
-    <div id="artists_radar_chart"></div>
-    <div class="autocomplete" style="width:300px; margin-bottom: 10px;"> 
-        Enter Artist Name: <input id="dropdownInputArtist" type="text" name="artistInput"> 
-    </div>
-    </div>
 
-    <div class="section">
+  <div class="section">
     <h2 class="vis-heading">How do Explicit and Non-Explicit Songs Compare?</h2>
-      <div id="explicit_chart"></div>
+    <div id="explicit_chart"></div>
+  </div>
+
+  <div class="section">
+    <h2 class="vis-heading">Average Song Tempo vs. Length by Artist</h2>
+    <p class="vis-heading">Pan and Zoom to Discover More</p>
+    <div id="tempo_length_plot"></div>
+  </div>
+
+  <div class="section">
+    <div class="header-row">
+      <h2 class="vis-heading">What Most Correlates with What?</h2>
+      <p class="vis-heading">Find Out Yourself!</p>
     </div>
 
-    <div class="section">
-        <h2 class="vis-heading">Average Song Tempo vs. Length by Artist</h2>
-        <p class="vis-heading">Pan and Zoom to Discover More</p>
-        <div id="tempo_length_plot"></div>
-    </div>
+    <p class="note">Double click the heatmap to clear the selection.</p>
 
-      <div class="section">
-        <div class="header-row">
-          <h2 class="vis-heading">What Most Correlates with What?</h2>
-          <p class="vis-heading">Find Out Yourself!</p>
-        </div>
-  
-        <p class="note">Double click the heatmap to clear the selection.</p>
-  
-        <div class="container">
-          <div id="vis"></div>
-  
-          <div class="right-panel">
-            <h1 class="scatter-top-title">Scatter Plot</h1>
-  
-            <p id="infoBox">
-              No pair selected, click a square on the heatmap to see the scatter plot.
-            </p>
-  
-            <div id="scatter"></div>
-          </div>
-        </div>
+    <div class="container">
+      <div id="vis"></div>
+
+      <div class="right-panel">
+        <h1 class="scatter-top-title">Scatter Plot</h1>
+
+        <p id="infoBox">
+          No pair selected, click a square on the heatmap to see the scatter plot.
+        </p>
+
+        <div id="scatter"></div>
       </div>
-    
-    <script type="text/javascript">
-    </script>
+    </div>
+  </div>
 
-    <script src="Dashboard.js"></script>
+  <script type="text/javascript">
+  </script>
 
-  </body>
+  <script src="Dashboard.js"></script>
+
+</body>
+
 </html>
