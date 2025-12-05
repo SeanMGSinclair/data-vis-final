@@ -1,6 +1,10 @@
+html {
+  scroll-behavior: smooth;
+}
 body {
   font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   background-color:  #f2f0ef;
+  
 }
 header {
   display: inline-block;
@@ -8,6 +12,11 @@ header {
   color: white;
   border-bottom-left-radius: 5%;
   border-bottom-right-radius: 5%;
+  position: sticky;
+  top: 0;
+  width: 100%;
+  z-index: 999;
+
 }
 #popularity_correlation_chart {
     display: block;

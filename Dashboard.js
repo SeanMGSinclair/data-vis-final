@@ -808,12 +808,13 @@
         type: 'quantitative',
         axis: { title: 'Average Song Tempo (BPM)' }
       },
-      size: {
+      color: {
         field: 'loudness',
         type: 'quantitative',
+        scale: { domain: [-20, -10, 0], range: ["#b2182b", "#f7f7f7", "#2166ac"] },
         legend: { title: 'Avg. Loudness (dB)' }
       },
-      color: { value: '#2166ac' },
+      
       tooltip: [
         { field: 'artist' },
         { field: 'duration' },
