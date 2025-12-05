@@ -1,15 +1,4 @@
 (async function () {
-  /****************************** Starting Dropdown Menu ******************************************/
-    document.querySelector('.dropdown-btn').addEventListener('click', () => {
-      const menu = document.querySelector('.dropdown-content');
-      menu.style.display = (menu.style.display === "block") ? "none" : "block";
-    });
-
-    document.querySelectorAll('.dropdown-content a').forEach(link => {
-      link.addEventListener('click', () => {
-        document.querySelector('.dropdown-content').style.display = "none";
-      });
-    });
   /****************************** Javascript Data Munging ******************************************/
   const DEFAULT_SAMPLE_SIZE = 100;
   const prettyLabel = s => s.charAt(0).toUpperCase() + s.slice(1);
@@ -222,84 +211,27 @@
 
   vegaEmbed('#popularity_correlation_chart', popularity_correlation_chart);
   /************************************** Second Visualization: Radar Chart By Song/Artist ******************************************/
+  
+ let dropdownValuesTracks = []; // global array
 
-  const dropdownValuesTracks = ["Unholy (feat. Kim Petras)",
-    "Quevedo: Bzrp Music Sessions, Vol. 52",
-    "I\'m Good (Blue)",
-    "La Bachata",
-    "Me Porto Bonito",
-    "Efecto",
-    "I Ain\'t Worried",
-    "Under The Influence",
-    "Ojitos Lindos",
-    "As It Was",
-    "Moscow Mule",
-    "Glimpse of Us",
-    "Sweater Weather",
-    "Neverita",
-    "Another Love",
-    "CUFF IT",
-    "PROVENZA",
-    "I Wanna Be Yours",
-    "Left and Right (Feat. Jung Kook of BTS)",
-    "Calm Down (with Selena Gomez)",
-    "Super Freaky Girl",
-    "LOKERA",
-    "Tarot",
-    "Caile",
-    "Jimmy Cooks (feat. 21 Savage)",
-    "Blinding Lights",
-    "La Corriente",
-    "Running Up That Hill (A Deal With God)",
-    "Ferrari",
-    "Sex, Drugs, Etc.",
-    "Vegas (From the Original Motion Picture Soundtrack ELVIS)",
-    "Party",
-    "Te Felicito",
-    "Atlantis",
-    "MIDDLE OF THE NIGHT",
-    "Dandelions",
-    "I Was Never There",
-    "Starboy",
-    "Until I Found You",
-    "One Kiss (with Dua Lipa)",
-    "Hold Me Closer",
-    "Save Your Tears",
-    "LA INOCENTE",
-    "Bones",
-    "Something in the Orange",
-    "About Damn Time",
-    "BILLIE EILISH.",
-    "I Love You So",
-    "lovely (with Khalid)",
-    "STAY (with Justin Bieber)",
-    "Gangsta\'s Paradise",
-    "Watermelon Sugar",
-    "WAIT FOR U (feat. Drake & Tems)",
-    "Call Out My Name",
-    "505",
-    "Heat Waves",
-    "Mary On A Cross",
-    "Do I Wanna Know?",
-    "The Hills",
-    "Happier Than Ever",
-    "Where Are You Now",
-    "drivers license",
-    "After LIKE",
-    "Believer",
-    "Bad Habits",
-    "La Llevo Al Cielo (Ft. Ã‘engo Flow)",
-    "Evergreen (You Didnâ€™t Deserve Me At All)",
-    "No Role Modelz",
-    "I'm Not The Only One",
-    "BABY OTAKU",
-    "Without Me",
-    "Die For You",
-    "Ghost",
-    "FEARLESS",
-    "Feel Special",
-    "Shake It Off"
-  ];
+Papa.parse("radar_chart_songs.csv", {
+  download: true,
+  header: true,
+  skipEmptyLines: true,
+  complete: function(results) {
+    // Extract track names
+    dropdownValuesTracks = results.data.map(row => row.track_name).filter(Boolean);
+
+    console.log("Dropdown values:", dropdownValuesTracks);
+
+    // Initialize autocomplete AFTER data is ready
+    autocompleteTrack(document.getElementById("dropdownInputTrack"), dropdownValuesTracks);
+
+    // Initialize Vega chart AFTER data is ready
+    initVegaChart(dropdownValuesTracks[0]); // pass first track as default
+  }
+});
+
 
   function autocompleteTrack(inp, arr) {
     var currentFocus;
@@ -317,7 +249,7 @@
           b = document.createElement("DIV");
           b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
           b.innerHTML += arr[i].substr(val.length);
-          b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
+          b.innerHTML += `<input type="hidden" value="${escapeHtml(arr[i])}">`;
           b.addEventListener("click", function (e) {
             inp.value = this.getElementsByTagName("input")[0].value;
             updateChartTrack();
@@ -342,6 +274,14 @@
     document.addEventListener("click", function (e) { closeAllLists(e.target); });
   }
 
+  function escapeHtml(text) {
+  return text.replace(/&/g, "&amp;")
+             .replace(/</g, "&lt;")
+             .replace(/>/g, "&gt;")
+             .replace(/"/g, "&quot;")
+             .replace(/'/g, "&#39;");
+  }
+
   autocompleteTrack(document.getElementById("dropdownInputTrack"), dropdownValuesTracks);
 
   var song_radar_chart = {
@@ -353,7 +293,7 @@
     "autosize": { "type": "none", "contains": "padding" },
     "signals": [
       { "name": "radius", "update": "width / 2" },
-      { "name": "selectedTrack", "value": dropdownValuesTracks[0] } // default track
+      { "name": "selectedTrack", "value": "Super Freaky Girl" } // default track
     ],
     "data": [
       {
@@ -487,66 +427,25 @@
     if (e.key === 'Enter' || e.keyCode === 13) updateChartTrack();
   });
 
+  let dropdownValuesArtist = []; // global array
 
+  Papa.parse("radar_chart_artist_avg.csv", {
+    download: true,
+    header: true,
+    skipEmptyLines: true,
+    complete: function(results) {
+      // Extract track names
+      dropdownValuesArtist = results.data.map(row => row.artists).filter(Boolean);
 
+      console.log("Dropdown values:", dropdownValuesArtist);
 
-  const dropdownValuesArtist = ["Taylor Swift",
-    "IVE",
-    "Sam Smith;Kim Petras",
-    "Bizarrap;Quevedo",
-    "David Guetta;Bebe Rexha",
-    "Manuel Turizo",
-    "Bad Bunny",
-    "Billie Eilish",
-    "Arctic Monkeys",
-    "Nicki Minaj",
-    "Chris Brown",
-    "Harry Styles",
-    "Joji",
-    "Lil Nas X",
-    "Ruth B.",
-    "Shakira",
-    "The Weeknd",
-    "Lizzo",
-    "Imagine Dragons",
-    "Ghost",
-    "TWICE",
-    "Olivia Rodrigo",
-    "Future",
-    "J. Cole",
-    "Sam Smith",
-    "Doja Cat",
-    "One Direction",
-    "Eminem",
-    "Bruno Mars",
-    "XXXTENTACION",
-    "Ed Sheeran",
-    "BTS",
-    "Coldplay",
-    "AC/DC",
-    "Maroon 5",
-    "Dua Lipa",
-    "BLACKPINK",
-    "Daddy Yankee",
-    "James Arthur",
-    "Morgan Wallen",
-    "John Legend",
-    "Frank Ocean",
-    "Gorillaz",
-    "OneRepublic",
-    "Mitski",
-    "50 Cent",
-    "Drake",
-    "Kendrick Lamar",
-    "ABBA",
-    "TV Girl",
-    "Elton John",
-    "Justin Bieber",
-    "TOTO",
-    "Charlie Puth",
-    "Jax",
-    "The Beatles"
-  ];
+      // Initialize autocomplete AFTER data is ready
+      autocompleteArtists(document.getElementById("dropdownInputArtist"), dropdownValuesArtist);
+
+      // Initialize Vega chart AFTER data is ready
+      initVegaChart(dropdownValuesArtist[0]); // pass first track as default
+    }
+  });
 
   function autocompleteArtists(inp, arr) {
     var currentFocus;
@@ -564,7 +463,7 @@
           b = document.createElement("DIV");
           b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
           b.innerHTML += arr[i].substr(val.length);
-          b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
+          b.innerHTML += `<input type="hidden" value="${escapeHtml(arr[i])}">`;
           b.addEventListener("click", function (e) {
             inp.value = this.getElementsByTagName("input")[0].value;
             updateChartArtist();
@@ -600,12 +499,12 @@
     "autosize": { "type": "none", "contains": "padding" },
     "signals": [
       { "name": "radius", "update": "width / 2" },
-      { "name": "selectedArtists", "value": dropdownValuesArtist[0] } // default track
+      { "name": "selectedArtists", "value": "Taylor Swift" } // default track
     ],
     "data": [
       {
         "name": "table",
-        "url": "clean_dataset.csv",
+        "url": "radar_chart_artist_avg.csv",
         "format": { "type": "csv" },
         "transform": [
           { "type": "filter", "expr": "datum.artists === selectedArtists" },
@@ -1010,4 +909,3 @@
     buildScatter(null, null, DEFAULT_SAMPLE_SIZE);
   });
 })();
-
