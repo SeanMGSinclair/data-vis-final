@@ -1,6 +1,6 @@
+
 <!doctype html>
 <html>
-
 <head>
   <meta charset="utf-8" />
   <title>Combined Visualizations</title>
@@ -23,28 +23,54 @@
 
 <body>
   <header>
-    <h1 class="vis-heading">Unwrapping the Data: All About Music On <img
-      src="https://1000logos.net/wp-content/uploads/2017/11/Spotify-Logo.png" alt="Spotify"
-      style="width: 10%; height: auto; vertical-align: middle;"> </h1>
-      <a href="#vis"> Click here if you want to see a correlation heatmap </a>
-  </header>
+  <div class="header-container">
+
+    <div class="header-left">
+      <h1 class="title-heading">
+        Unwrapping the Data: All About Music On
+      </h1>
+
+      <img 
+        src="https://1000logos.net/wp-content/uploads/2017/11/Spotify-Logo.png"
+        alt="Spotify"
+        class="spotify-logo">
+    </div>
+
+    <div class="dropdown">
+      <button class="dropdown-btn">What do you want to know? ▾</button>
+      <div class="dropdown-content">
+        <a href="#popularity_correlation_chart1">What attribute most impacts popularity?</a>
+        <a href="#song_radar_chart1">More about your favorite songs</a>
+        <a href="#artists_radar_chart1">More about your favorite artists</a>
+        <a href="#explicit_chart1">Explicit vs. Non-Explicit</a>
+        <a href="#tempo_length_plot1">Tempo vs Length</a>
+        <a href="#vis1">Correlation Heatmap</a>
+      </div>
+    </div>
+
+  </div>
+</header>
+
   
   <div class="section">
+    <div id="popularity_correlation_chart1"></div>
     <h2 class="vis-heading">What Best Correlates With Popularity?</h2>
     <div id="popularity_correlation_chart"></div>
-
   </div>
 
   <div class="section">
     <div class="radars">
       <div class="radar_item">
-        <h2 class="vis-heading">Song's Musical Attributes (Rated by Listeners) </h2>
+        <div id="song_radar_chart1"></div>
+        <h2 class="vis-heading">Song's Musical Attributes (Rated by Listeners)</h2>
         <div id="song_radar_chart"></div>
         <div class="autocomplete" style="width:300px; margin-bottom: 10px;">
           Enter Track Name: <input id="dropdownInputTrack" type="text" name="trackInput">
         </div>
       </div>
+
       <div class="radar_item">
+        <div id="artists_radar_chart1"></div>
         <h2 class="vis-heading">Artist's Discography Average Attributes</h2>
         <div id="artists_radar_chart"></div>
         <div class="autocomplete" style="width:300px; margin-bottom: 10px;">
@@ -54,13 +80,14 @@
     </div>
   </div>
 
-
   <div class="section">
+    <div id="explicit_chart1"></div>
     <h2 class="vis-heading">How do Explicit and Non-Explicit Songs Compare?</h2>
     <div id="explicit_chart"></div>
   </div>
 
   <div class="section">
+    <div id="tempo_length_plot1"></div>
     <h2 class="vis-heading">Average Song Tempo vs. Length by Artist</h2>
     <p class="vis-heading">Pan and Zoom to Discover More</p>
     <div id="tempo_length_plot"></div>
@@ -68,6 +95,7 @@
 
   <div class="section">
     <div class="header-row">
+      <div id="vis1"></div>
       <h2 class="vis-heading">What Most Correlates with What?</h2>
       <p class="vis-heading">Find Out Yourself!</p>
     </div>
@@ -88,12 +116,6 @@
       </div>
     </div>
   </div>
-
-  <script type="text/javascript">
-  </script>
-
   <script src="Dashboard.js"></script>
-
 </body>
-
 </html>
